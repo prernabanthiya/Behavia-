@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Analysis Report</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; background:#f7f9fc; margin:0; padding:24px; }
+      .card { max-width:680px; margin:0 auto; background:white; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,.08); overflow:hidden; }
+      .header { background:#0d6efd; color:white; padding:16px 20px; }
+      .header h1 { margin:0; font-size:20px; }
+      .content { padding:20px; color:#1f2937; }
+      .row { margin:8px 0; }
+      .label { color:#6b7280; font-size:12px; text-transform:uppercase; letter-spacing:.04em; }
+      .value { font-size:16px; font-weight:600; }
+      .badge { display:inline-block; padding:4px 10px; border-radius:999px; font-weight:700; color:white; font-size:12px; }
+      .badge-red { background:#dc3545; }
+      .badge-green { background:#198754; }
+      .footer { padding:16px 20px; color:#6b7280; font-size:12px; border-top:1px solid #eef2f7; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="header">
+        <h1>Autism Screening Analysis Report</h1>
+      </div>
+      <div class="content">
+        <div class="row">
+          <div class="label">Report ID</div>
+          <div class="value">#{{ report.id }}</div>
+        </div>
+        <div class="row">
+          <div class="label">Patient</div>
+          <div class="value">{{ report.patient.first_name }} {{ report.patient.last_name }} ({{ report.patient.patient_uid }})</div>
+        </div>
+        <div class="row">
+          <div class="label">Result</div>
+          <div class="value">
+            {% if report.result_label == 'autistic' %}
+              <span class="badge badge-red">autistic</span>
+            {% else %}
+              <span class="badge badge-green">non aut</span>
+            {% endif %}
+            &nbsp; score: {{ report.result_score|floatformat:2 }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">Generated at</div>
+          <div class="value">{{ report.created_at|date:'Y-m-d H:i' }}</div>
+        </div>
+        <p style="margin-top:16px;color:#374151;">Please find the attached PDF for a printable version of this report.</p>
+      </div>
+      <div class="footer">
+        Sent by BehaVia • This is an automated message.
+      </div>
+    </div>
+  </body>
+</html>
+
+

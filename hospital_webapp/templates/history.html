@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4 class="text-primary mb-3">Analysis History</h4>
+<div class="card shadow-sm">
+  <div class="card-body table-responsive">
+    <table class="table table-hover align-middle">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Patient</th>
+          <th>Result</th>
+          <th>Score</th>
+          <th>Created</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for r in reports %}
+        <tr>
+          <td>{{ r.id }}</td>
+          <td>{{ r.patient }}</td>
+          <td class="fw-semibold">{{ r.result_label }}</td>
+          <td>{{ r.result_score|floatformat:2 }}</td>
+          <td>{{ r.created_at|date:"Y-m-d H:i" }}</td>
+          <td>
+            <a class="btn btn-sm btn-outline-primary" href="/reports/{{ r.id }}/download/">Download</a>
+            <a class="btn btn-sm btn-outline-secondary" href="/reports/{{ r.id }}/email/">Email</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="6" class="text-center">No reports yet.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+ </div>
+{% endblock %}
+
+

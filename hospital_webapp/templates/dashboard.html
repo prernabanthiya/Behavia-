@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row g-4">
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <h6 class="text-muted">Patients</h6>
+        <h3 class="text-primary">{{ patients_count }}</h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <h6 class="text-muted">Reports</h6>
+        <h3 class="text-primary">{{ reports_count }}</h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mt-4 shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title text-primary"><i class="fa-solid fa-video"></i> Analyze Video/Image</h5>
+    <form id="analyzeForm" class="row g-3" method="post" enctype="multipart/form-data" action="/analyze/">
+      {% csrf_token %}
+      <div class="col-md-4">
+        <label class="form-label">Patient</label>
+        <select class="form-select" name="patient_uid" required>
+          <option value="">Select patient...</option>
+          {% for p in patients %}
+            <option value="{{ p.patient_uid }}">{{ p.patient_uid }} - {{ p.first_name }} {{ p.last_name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Media Type</label>
+        <select class="form-select" id="mediaType" name="media_type" required>
+          <option value="image">Image</option>
+          <option value="video">Video</option>
+          <option value="audio">Audio</option>
+        </select>
+      </div>
+      <div class="col-md-4 media-input media-image">
+        <label class="form-label">Image</label>
+        <input type="file" class="form-control" name="image" accept="image/*">
+      </div>
+      <div class="col-md-4 media-input media-video d-none">
+        <label class="form-label">Video</label>
+        <input type="file" class="form-control" name="video" accept="video/*">
+      </div>
+      <div class="col-md-4 media-input media-audio d-none">
+        <label class="form-label">Audio</label>
+        <input type="file" class="form-control" name="audio" accept="audio/*">
+      </div>
+      <div class="col-12">
+        <button class="btn btn-primary">Analyze</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Result Modal -->
+<div class="modal fade" id="resultModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content shadow-lg border-0">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title"><i class="bi bi-activity"></i> Analysis Result</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3 align-items-center">
+          <div class="col-md-5 text-center">
+            <img id="resultImage" class="img-fluid rounded shadow-sm" alt="Analyzed image" />
+          </div>
+          <div class="col-md-7">
+            <div id="resultText" class="mb-3"></div>
+            <div class="progress" role="progressbar" aria-label="Score" aria-valuemin="0" aria-valuemax="100">
+              <div id="resultProgress" class="progress-bar bg-success" style="width: 0%">0%</div>
+            </div>
+          </div>
+        </div>
+        <div id="framesGallery" class="mt-4 d-none">
+          <h6 class="text-primary mb-2"><i class="bi bi-collection"></i> Frames with higher scores</h6>
+          <div class="row g-3" id="framesGrid"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a id="downloadLink" class="btn btn-outline-primary" href="#" target="_blank"><i class="bi bi-download"></i> Download Report</a>
+      </div>
+    </div>
+  </div>
+ </div>
+{% endblock %}
+
+

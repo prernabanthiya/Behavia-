@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="p-5 mb-4 bg-primary text-white rounded-3 animate__animated animate__fadeIn">
+  <div class="container-fluid py-5">
+    <h1 class="display-5 fw-bold"><i class="fa-solid fa-hospital"></i> BehaVia Hospital</h1>
+    <p class="col-md-8 fs-5">Modern diagnostics platform for autism analysis. Fast, simple, professional.</p>
+    <a class="btn btn-light btn-lg" href="/signin/">Get Started</a>
+  </div>
+</div>
+
+<div class="row g-4">
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h5 class="card-title text-primary"><i class="fa-solid fa-user-doctor"></i> Patient Care</h5>
+        <p class="card-text">Manage patient profiles and history in a clean dashboard.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h5 class="card-title text-primary"><i class="fa-solid fa-video"></i> Video Analysis</h5>
+        <p class="card-text">Upload video frames for AI-assisted autism screening.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h5 class="card-title text-primary"><i class="fa-solid fa-file-waveform"></i> Reports</h5>
+        <p class="card-text">Receive results in a modal, email reports, and download for records.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
